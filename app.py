@@ -355,7 +355,10 @@ for año, color, texto in [
         y=fila["Volatilidad"],
         mode='markers+text',
         text=[texto],
-        textposition="top center",
+        textposition="top right",
+
+        textfont=dict(size=11),
+        
         marker=dict(
             size=18,
             color=color,
