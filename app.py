@@ -14,13 +14,10 @@ Original file is located at
 # **Código consolidado**
 """
 
-!pip install dash==3.2.0
-!pip install -q dash-bootstrap-components
 
 import random as rnd
 import pandas as pd
 import numpy as np
-from google.colab import files
 import plotly.express as px
 from dash import callback_context
 
@@ -77,11 +74,9 @@ df_final_Cafe = volatilidad(df_final_Cafe)
 
 #Depuración columnas
 df_Cafe = df_final_Cafe[["año","fecha","indice_dolar","precio_petroleo","costo_produccion_cafe","precio_cafe","Volatilidad"]]
+df_Cafe["año"] = df_Cafe["año"].astype(int)
 df_Cafe
 
-#Exportación formato excel
-#df_Cafe.to_csv('datos_cafe.csv', index=False)
-#files.download('datos_cafe.csv')
 
 """# Identificacion y tratamiento de datos duplicados"""
 
@@ -1876,32 +1871,6 @@ def renderizar_contenido(tab):
 )
 def actualizar_dispersion(variable):
     return generar_dispersion(df_Cafe, variable)
-
-@app.callback(
-    Output('insight-dinamico-dispersion', 'children'),
-    Input('dropdown-variables', 'value')
-)
-def actualizar_insight(variable):
-
-    insights = {
-
-        'indice_dolar':
-            "El fortalecimiento del dólar suele aumentar moderadamente "
-            "el precio internacional del café debido a efectos cambiarios "
-            "y presión sobre exportaciones.",
-
-        'precio_petroleo':
-            "El petróleo afecta principalmente costos logísticos, "
-            "transporte y producción, aunque su relación directa "
-            "con el café es relativamente baja.",
-
-        'costo_produccion_cafe':
-            "El costo de producción presenta la relación más fuerte "
-            "con el precio del café, evidenciando cómo el aumento "
-            "de costos impacta directamente el mercado cafetero."
-    }
-
-    return insights[variable]
 
 
 # ─────────────────────────────────────────────────────────────
